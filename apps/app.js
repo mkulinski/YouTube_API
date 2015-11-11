@@ -1,3 +1,4 @@
+
 $(function(){
     $('#search-term').submit(function(event){
         event.preventDefault();
@@ -8,21 +9,22 @@ $(function(){
 
 function getRequest(searchTerm){
     var params = {
-        s: searchTerm,
-        r: 'json'
+        q: searchTerm,
+        part: 'snippet',
+        key: 'AIzaSyDQRNyERT53KCiEfWNmHoFYM3E_QF5cpkM'
     };
-    url = 'http://www.omdbapi.com';
+    url = 'https://www.googleapis.com/youtube/v3/search?';
 
     $.getJSON(url, params, function(data){
-        showResults(data.Search);
+        showResults(data.items);
+        console.log(data.items);
     });
 }
 
 function showResults(results){
     var html = "";
     $.each(results, function(index,value){
-        html += '<p>' + value.Title + '</p>';
-        console.log(value.Title);
+        html += '<p>' + '<img src= http://img.youtube.com/vi/' + value.id.videoId + '/2.jpg>' + '</p>';
     });
     $('#search-results').html(html);
 }
